@@ -23,6 +23,7 @@ export class FilesController {
   }) )
   uploadImage(@UploadedFile() file: Express.Multer.File){
     if(!file) throw new BadRequestException("file must be an image")
+    
     return "yes"
   }
 

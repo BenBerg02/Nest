@@ -10,6 +10,7 @@ import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { PaginationDto } from 'src/common/dtos/pagination.dto';
 import { Image } from './entities/product-image.entity';
+import { User } from 'src/users/entities/user.entity';
 
 @Injectable()
 export class ProductsService {
@@ -26,11 +27,15 @@ export class ProductsService {
     private readonly dataSource: DataSource
   ){}
 
-  async create(createProductDto: CreateProductDto) {
+  async create(createProductDto: CreateProductDto, Vendor: User) {
     try {
       const {images = [], ...detailProduct} = createProductDto
-      
-      const product = this.productRepository.create({...detailProduct, images: images.map(image => this.productImageRepository.create({name: image}))})
+      if(!Vendor || !detailProduct.title) throw new BadRequestException()
+      const product = this.productRepository.create({
+        ...detailProduct, 
+        images: images.map(image => this.productImageRepository.create({name: image})),
+        Vendor
+      })
 
       await this.productRepository.save(product)
 
