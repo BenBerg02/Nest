@@ -5,6 +5,7 @@ import { ProductsModule } from './products/products.module';
 import { CommonModule } from './common/common.module';
 import { FilesModule } from './files/files.module';
 import { UsersModule } from './users/users.module';
+import { ChatModule } from './chat/chat.module';
 
 
 @Module({
@@ -24,7 +25,8 @@ import { UsersModule } from './users/users.module';
     ProductsModule,
     CommonModule,
     FilesModule,
-    UsersModule
+    UsersModule,
+    ChatModule
   ],
 })
 export class AppModule {}
