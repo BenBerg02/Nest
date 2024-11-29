@@ -3,6 +3,7 @@ import { Server, Socket } from 'socket.io';
 import { ChatService } from './chat.service';
 import { JwtService } from '@nestjs/jwt';
 import { JwtPayload } from 'src/users/interfaces/jwt-payload.interface';
+import { messageDto } from './dto/message.dto';
 
 
 @WebSocketGateway({cors: true})
@@ -38,7 +39,7 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
   }
 
   @SubscribeMessage('message-from-client')
-  async onMessageFromClient(client: Socket, payload: any){
+  async onMessageFromClient(client: Socket, payload: messageDto){
 
     let jwtpayload: JwtPayload
     
